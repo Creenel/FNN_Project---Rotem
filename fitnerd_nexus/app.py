@@ -21,7 +21,7 @@ db = firebase.database()
 
 @app.route("/")
 def main():
-  db.child('verified_users').set(['aReal_Person','veryspecialtestuser'])
+  db.child('verified_users').set(['aReal_Person','veryspecialtestuser',"darius"])
   return render_template("main.html")
 
 @app.route("/signup", methods = ["GET","POST"])
@@ -30,8 +30,8 @@ def signup():
     user = {"username":request.form["username"],"email":request.form["email"]}
     session['user'] = auth.create_user_with_email_and_password(user['email'],request.form["password"])
     session['uid'] = session['user']['localId']
-    session['username'] = user['username']
     db.child('Users').child(session['uid']).set(user)
+    session['username'] = db.child("Users").child(session['uid']).child('username').get().val()
     if session['username'] in db.child('verified_users').get().val():
       session['verified'] = True
     else:
@@ -44,6 +44,13 @@ def signup():
 def signin():
   if request.method == "POST":
     session['user'] = auth.sign_in_with_email_and_password(request.form['email'],request.form['password'])
+    session['uid'] = session['user']['localId']
+    session['username'] = db.child("Users").child(session['uid']).child('username').get().val()
+
+    if session['username'] in db.child('verified_users').get().val():
+      session['verified'] = True
+    else:
+      session['verified'] = False
     return redirect(url_for("feed"))
   else:
     return render_template("signin.html")
@@ -56,10 +63,16 @@ def feed():
 
 @app.route("/post", methods = ['GET','POST'])
 def post():
+  print(session['username'])
   if request.method == "POST":
-     post = {"title": request.form['title'],"text":request.form['text'],"author":session['username']}
-     db.child("Posts").push(post)
-     return redirect(url_for("feed"))
+     if session['verified'] == True:
+      post = {"title": request.form['title'],"text":request.form['text'],"author":session['username'],"isVerified":True}
+      db.child("Posts").push(post)
+      return redirect(url_for("feed"))
+     else:
+      post = {"title": request.form['title'],"text":request.form['text'],"author":session['username'],"isVerified":False}
+      db.child("Posts").push(post)
+      return redirect(url_for("feed"))
   elif session['verified'] == True:
     return render_template("post_verified.html")
   else:

@@ -1,4 +1,7 @@
 <html>
+<head>
+	<style> .ver {color : green} </style>
+</head>
 <body>
 	<p> Guidelines:
 	<ul>
@@ -10,6 +13,9 @@
 	</p>
 		{% for p in posts.values() %}
 		<h1>{{p['title']}}</h1>
+			{% if p['isVerified'] == True %}
+				<p class = "ver">VERIFIED</p>
+			{% endif %}
 		<p>{{p['text']}}</p>
 		<p>Posted by {{p['author']}} on {{d}}</p>
 		{%endfor%}

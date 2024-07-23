@@ -1,0 +1,19 @@
+<html>
+<body>
+	<p> Guidelines:
+	<ul>
+		<li>All posts must be related to fitness or health</li>
+		<li>Treat everyone with respect</li>
+		<li>No misinformation</li>
+		<li>No harrassment of any sort</li>
+	</ul>
+	</p>
+		{% for p in posts.values() %}
+		<h1>{{p['title']}}</h1>
+		<p>{{p['text']}}</p>
+		<p>Posted by {{p['author']}} on {{d}}</p>
+		{%endfor%}
+	<a href = "/post">+</a><br><br>
+	<a href = "/signout">Sign out</a>
+</body>
+</html>

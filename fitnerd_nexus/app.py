@@ -27,31 +27,36 @@ def main():
 @app.route("/signup", methods = ["GET","POST"])
 def signup():
   if request.method == "POST":
-    user = {"username":request.form["username"],"email":request.form["email"]}
-    session['user'] = auth.create_user_with_email_and_password(user['email'],request.form["password"])
-    session['uid'] = session['user']['localId']
-    db.child('Users').child(session['uid']).set(user)
-    session['username'] = db.child("Users").child(session['uid']).child('username').get().val()
-    if session['username'] in db.child('verified_users').get().val():
-      session['verified'] = True
-    else:
-      session['verified'] = False
-    return redirect(url_for("feed"))
+    try:
+      user = {"username":request.form["username"],"email":request.form["email"]}
+      session['user'] = auth.create_user_with_email_and_password(user['email'],request.form["password"])
+      session['uid'] = session['user']['localId']
+      db.child('Users').child(session['uid']).set(user)
+      session['username'] = db.child("Users").child(session['uid']).child('username').get().val()
+      if session['username'] in db.child('verified_users').get().val():
+        session['verified'] = True
+      else:
+        session['verified'] = False
+      return redirect(url_for("feed"))
+    except:
+      return redirect(url_for("error"))
   else:
     return render_template("signup.html")
 
 @app.route("/signin", methods = ["GET","POST"])
 def signin():
   if request.method == "POST":
-    session['user'] = auth.sign_in_with_email_and_password(request.form['email'],request.form['password'])
-    session['uid'] = session['user']['localId']
-    session['username'] = db.child("Users").child(session['uid']).child('username').get().val()
-
-    if session['username'] in db.child('verified_users').get().val():
-      session['verified'] = True
-    else:
-      session['verified'] = False
-    return redirect(url_for("feed"))
+    try:
+      session['user'] = auth.sign_in_with_email_and_password(request.form['email'],request.form['password'])
+      session['uid'] = session['user']['localId']
+      session['username'] = db.child("Users").child(session['uid']).child('username').get().val()
+      if session['username'] in db.child('verified_users').get().val():
+        session['verified'] = True
+      else:
+        session['verified'] = False
+      return redirect(url_for("feed"))
+    except:
+      return redirect(url_for("error"))
   else:
     return render_template("signin.html")
 
@@ -89,6 +94,10 @@ def signout():
   session['user'] = None
   auth.current_user = None
   return redirect(url_for("signin"))
+
+@app.route("/error")
+def error():
+  return render_template("error.html")
 
 
 if __name__ == '__main__':

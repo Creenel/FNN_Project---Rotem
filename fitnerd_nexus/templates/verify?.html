@@ -1,14 +1,83 @@
+<!DOCTYPE html>
 <html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #666;
+            margin: 10px 0;
+            text-align: center;
+            max-width: 800px;
+        }
+        ul {
+            list-style-type: disc;
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 20px;
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #fff;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        a:hover {
+            background-color: #e6e6e6;
+        }
+        .note {
+            font-size: 14px;
+            color: #666;
+            margin-top: 10px;
+        }
+        .return-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            text-decoration: none;
+            color: #007bff;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px 20px;
+            background-color: #fff;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .return-link:hover {
+            background-color: #e6e6e6;
+        }
+    </style>
+</head>
 <body>
-	<a href="/post">Return</a>
-	<h1>What is a verified account?</h1>
-	<p>Below, you can apply for an account verification. A verified account can post verified posts- A verified post will be considered factual, for example recent research paper, an experiment log or a scientific article.<br>Requirements:
-		<ul>
-			<li>At least 2 months old account.</li>
-			<li>At least 5 posts, none of which reported for breaking the guidelines</li>
-			<li>NCSF recognized certification or degree</li>
-		</ul></p>
-	<p>In the application: State your full name, age, username, and attach photos of degrees and/or certificates</p>
-	<a href="mailto:chinkycreenel@gmail.com">Apply</a>
+    <a href="/post" class="return-link">Return</a>
+    <h1>What is a verified account?</h1>
+    <p>Below, you can apply for an account verification. A verified account can post verified posts—A verified post will be considered factual, for example recent research papers, an experiment log, or a scientific article.<br>Requirements:
+        <ul>
+            <li>At least 2 months old account.</li>
+            <li>At least 5 posts, none of which reported for breaking the guidelines.</li>
+            <li>NCSF recognized certification or degree.</li>
+        </ul>
+    </p>
+    <p>In the application: State your full name, age, username, and attach photos of degrees and/or certificates.</p>
+    <a href="mailto:chinkycreenel@gmail.com">Apply</a>
+    <p class="note">(The application might take a few moments to open)</p>
 </body>
 </html>

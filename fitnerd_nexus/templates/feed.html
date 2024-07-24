@@ -1,25 +1,126 @@
+<!DOCTYPE html>
 <html>
 <head>
-	<style> .ver {color : green} </style>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+        }
+        .guidelines {
+            width: 20%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-right: 20px;
+        }
+        .guidelines ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .guidelines li {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #666;
+        }
+        .posts {
+            width: 60%;
+        }
+        .post {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .post h1 {
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .ver {
+            color: green;
+            font-weight: bold;
+            font-style:italic;
+        }
+        .post p {
+            color: #666;
+            line-height: 1.5;
+        }
+        .actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+        .add-post {
+            width: 60px;
+            height: 60px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 50%;
+            text-align: center;
+            text-decoration: none;
+            line-height: 60px;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 20px;
+        }
+        .add-post:hover {
+            background-color: #0056b3;
+        }
+        .sign-out {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 20px;
+        }
+        .sign-out:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-	<p> Guidelines:
-	<ul>
-		<li>All posts must be related to fitness or health</li>
-		<li>Treat everyone with respect</li>
-		<li>No misinformation</li>
-		<li>No harrassment of any sort</li>
-	</ul>
-	</p>
-		{% for p in posts.values() %}
-		<h1>{{p['title']}}</h1>
-			{% if p['isVerified'] == True %}
-				<p class = "ver">VERIFIED</p>
-			{% endif %}
-		<p>{{p['text']}}</p>
-		<p>Posted by {{p['author']}} on {{d}}</p>
-		{%endfor%}
-	<a href = "/post">+</a><br><br>
-	<a href = "/signout">Sign out</a>
+    <div class="container">
+        <div class="guidelines">
+            <p>Guidelines:</p>
+            <ul>
+                <li>All posts must be related to fitness or health</li>
+                <li>Treat everyone with respect</li>
+                <li>No misinformation</li>
+                <li>No harassment of any sort</li>
+            </ul>
+        </div>
+        <div class="posts">
+            {% for p in posts.values() %}
+            <div class="post">
+                <h1>{{p['title']}}</h1>
+                {% if p['isVerified'] == True %}
+                <p class="ver">VERIFIED✅</p>
+                {% endif %}
+                <p>{{p['text']}}</p>
+                <p>Posted by {{p['author']}} on {{p['pdate']}}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="actions">
+        <a href="/post" class="add-post">+</a>
+        <a href="/signout" class="sign-out">Sign out</a>
+    </div>
 </body>
 </html>

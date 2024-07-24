@@ -58,21 +58,23 @@ def signin():
 @app.route("/feed")
 def feed():
   posts = db.child("Posts").get().val()
-  d = datetime.now().strftime("%d-%m-%Y")
-  return render_template("feed.html", posts = posts, d = d)
+  session['d'] = datetime.now().strftime("%d-%m-%Y")
+  return render_template("feed.html", posts = posts)
 
 @app.route("/post", methods = ['GET','POST'])
 def post():
   print(session['username'])
   if request.method == "POST":
-     if session['verified'] == True:
-      post = {"title": request.form['title'],"text":request.form['text'],"author":session['username'],"isVerified":True}
+    pdate = session['d']
+    if session['verified'] == True:
+      post = {"title": request.form['title'],"text":request.form['text'],"author":session['username'],"isVerified":True,"pdate":pdate}
       db.child("Posts").push(post)
       return redirect(url_for("feed"))
-     else:
-      post = {"title": request.form['title'],"text":request.form['text'],"author":session['username'],"isVerified":False}
+    else:
+      post = {"title": request.form['title'],"text":request.form['text'],"author":session['username'],"isVerified":False,"pdate":pdate}
       db.child("Posts").push(post)
       return redirect(url_for("feed"))
+
   elif session['verified'] == True:
     return render_template("post_verified.html")
   else:

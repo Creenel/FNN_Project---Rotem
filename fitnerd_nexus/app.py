@@ -92,6 +92,7 @@ def verify():
 @app.route("/signout")
 def signout():
   session['user'] = None
+  session['username'] = None
   auth.current_user = None
   return redirect(url_for("signin"))
 

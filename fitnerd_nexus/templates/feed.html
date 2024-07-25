@@ -52,7 +52,7 @@
         .ver {
             color: green;
             font-weight: bold;
-            font-style:italic;
+            font-style: italic;
         }
         .post p {
             color: #666;
@@ -79,7 +79,9 @@
             font-weight: bold;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            margin-bottom: 20px;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
         }
         .add-post:hover {
             background-color: #0056b3;
@@ -119,8 +121,8 @@
         </div>
     </div>
     <div class="actions">
-        <a href="/post" class="add-post">+</a>
         <a href="/signout" class="sign-out">Sign out</a>
     </div>
+    <a href="/post" class="add-post">+</a>
 </body>
 </html>
